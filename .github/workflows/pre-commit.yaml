@@ -1,0 +1,21 @@
+---
+name: pre-commit
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Install tflint
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
+        with:
+          repo: terraform-linters/tflint
+      - name: Install terraform-docs
+        uses: jaxxstorm/action-install-gh-release@v1.11.0
+        with:
+          repo: terraform-docs/terraform-docs
+      - name: Run pre-commit
+        uses: pre-commit/action@v3.0.1
